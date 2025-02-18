@@ -65,5 +65,13 @@
     };
   };
 
-  wayland.windowManager.hyprland.enable = true;
+  wayland.windowManager.hyprland = {
+    enable = true;
+    extraConfig = ''
+      # Make xwayland apps like vscode scale well
+      xwayland {
+        force_zero_scaling = true
+      }
+    '';
+  }
 }
