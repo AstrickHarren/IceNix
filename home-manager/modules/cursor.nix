@@ -6,8 +6,8 @@
 }:
 {
   options = {
-    nixbox.cursor.theme = lib.mkOption { default = "Bibata-Modern-Ice"; };
-    nixbox.cursor.size = lib.mkOption { default = 24; };
+    icenix.cursor.theme = lib.mkOption { default = "Bibata-Modern-Ice"; };
+    icenix.cursor.size = lib.mkOption { default = 24; };
   };
 
   config = {
@@ -32,14 +32,14 @@
     home.pointerCursor = {
       gtk.enable = true;
       package = pkgs.bibata-cursors;
-      name = config.nixbox.cursor.theme;
-      size = config.nixbox.cursor.size;
+      name = config.icenix.cursor.theme;
+      size = config.icenix.cursor.size;
     };
 
     wayland.windowManager.hyprland.settings = {
       env = [
-        "XCURSOR_THEME,${config.nixbox.cursor.theme}"
-        "XCURSOR_SIZE,${toString config.nixbox.cursor.size}"
+        "XCURSOR_THEME,${config.icenix.cursor.theme}"
+        "XCURSOR_SIZE,${toString config.icenix.cursor.size}"
       ];
     };
   };

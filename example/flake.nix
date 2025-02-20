@@ -1,15 +1,15 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixbox = {
-      url = "github:AstrickHarren/nixbox/unstable";
+    icenix = {
+      url = "github:AstrickHarren/icenix/unstable";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs =
     inputs:
-    inputs.nixbox.mkNixbox {
+    inputs.icenix.mkIcenix {
       inherit inputs;
       settings = {
         # Change here !!!
@@ -32,13 +32,13 @@
         # boot.loader.grub.enable = true;
         # boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
 
-        nixbox = {
+        icenix = {
           # If you want to install nvidia driver, usually required if your
           # laptop doesn't have a second GPU
           nvidia.enable = true;
 
           # Install rootLESS! docker, unfortunately, rootFUL doocker is not
-          # supported by NixBox. Docker data is put in `~/.cache`
+          # supported by IceNix. Docker data is put in `~/.cache`
           dockerRootless.enable = true;
         };
 

@@ -1,0 +1,40 @@
+name: icenix
+help: Utility for IceNix 
+version: 0.3.0
+
+commands:
+- name: update
+  help: Update IceNix
+
+- name: build
+  alias: b
+  help: Rebuild your NixOS
+  commands:
+    - name: home
+      help: Update user-level packages (managed by home-manager)
+      examples:
+        icenix update home
+
+    - name: os
+      help: Update os-level packages (not managed by home-manager)
+      examples:
+        icenix update os
+
+- name: sync
+  help: Update and rebuild
+  commands:
+    - name: home
+      help: sync user-level packages (managed by home-manager)
+      examples:
+        icenix sync home
+
+    - name: os
+      help: sync packages (not managed by home-manager)
+      examples:
+        icenix sync os
+
+
+environment_variables:
+  - name: FLAKE
+    help: Location of the flake file
+    required: true

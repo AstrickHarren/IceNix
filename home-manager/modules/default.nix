@@ -21,6 +21,9 @@ let
     ignis = ./ignis.nix;
     clipse = ./clipse.nix;
     betterfox = ./betterfox.nix;
+    darkMode = ./dark_mode.nix;
+
+    icenix-cli = ./icenix-cli;
   };
 
   enableOptions =
@@ -28,10 +31,10 @@ let
       enable = lib.mkEnableOption (lib.elemAt k (lib.length k - 1));
     }) subModules)
     // {
-      enable = lib.mkEnableOption "nixbox integrations by default";
+      enable = lib.mkEnableOption "icenix integrations by default";
     };
   enableDefaults = lib.mapAttrsRecursive (k: _: {
-    enable = lib.mkDefault config.nixbox.enable;
+    enable = lib.mkDefault config.icenix.enable;
   }) subModules;
 
   mkImport =
@@ -43,9 +46,9 @@ let
     );
 in
 {
-  options.nixbox = enableOptions;
-  config.nixbox = enableDefaults;
-  imports = mkImport config.nixbox subModules ++ [
-    (mkModuleIf config.nixbox.enable ./utils.nix)
+  options.icenix = enableOptions;
+  config.icenix = enableDefaults;
+  imports = mkImport config.icenix subModules ++ [
+    (mkModuleIf config.icenix.enable ./utils.nix)
   ];
 }

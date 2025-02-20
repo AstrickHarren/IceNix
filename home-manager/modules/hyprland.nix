@@ -20,7 +20,7 @@ let
   );
 in
 {
-  options.nixbox = {
+  options.icenix = {
     keyboards.capsAsEsc = lib.mkEnableOption "mapping capslock to escape";
     keyboards.layouts = lib.mkOption {
       type = lib.types.attrs;
@@ -95,8 +95,8 @@ in
 
       input =
         let
-          layouts = config.nixbox.keyboards.layouts;
-          capsAsEsc = config.nixbox.keyboards.capsAsEsc;
+          layouts = config.icenix.keyboards.layouts;
+          capsAsEsc = config.icenix.keyboards.capsAsEsc;
 
           kb_layout =
             let
@@ -128,7 +128,11 @@ in
             (lib.mkIf capsAsEsc "caps:escape, grp:alt_shift_toggle")
             (lib.mkIf (!capsAsEsc) "grp:alt_shift_toggle")
           ];
-          touchpad.natural_scroll = true;
+          touchpad = {
+            natural_scroll = true;
+            scroll_factor = 0.2;
+          };
+          numlock_by_default = true;
         };
 
       cursor = {
@@ -139,6 +143,8 @@ in
       gestures = {
         workspace_swipe = true;
         workspace_swipe_min_fingers = true;
+        workspace_swipe_distance = 500;
+        workspace_swipe_min_speed_to_force = 10;
       };
 
       binds = {
@@ -158,10 +164,24 @@ in
         "$mod, K, movefocus, u"
         "$mod, L, movefocus, r"
 
+        "$mod, Left, movefocus, l"
+        "$mod, Down, movefocus, d"
+        "$mod, Up, movefocus, u"
+        "$mod, Right, movefocus, r"
+
+        "$mod, mouse_down, workspace, -1"
+        "$mod, mouse_up, workspace, +1"
+
         "$mod CTRL, H, workspace, -1"
         "$mod CTRL, L, workspace, +1"
         "$mod SHIFT CTRL, H, movetoworkspace, -1"
         "$mod SHIFT CTRL, L, movetoworkspace, +1"
+
+        "$mod CTRL, Left, workspace, -1"
+        "$mod CTRL, Right, workspace, +1"
+        "$mod SHIFT CTRL, Left, movetoworkspace, -1"
+        "$mod SHIFT CTRL, Right, movetoworkspace, +1"
+
         "$mod, Tab, workspace, previous"
       ] ++ bind_switch_workspace;
       bindl = [
@@ -174,6 +194,7 @@ in
         "$mod, Minus, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
         ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
         ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
       ];
       bindm = [
         "$mod, mouse:272, movewindow"

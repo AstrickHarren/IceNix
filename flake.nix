@@ -44,28 +44,28 @@
   };
 
   outputs =
-    nixboxInputs:
+    icenixInputs:
     let
       mkSystem = import ./util/mkSystem.nix;
     in
     {
-      mkNixbox =
+      mkIcenix =
         {
           inputs,
           settings,
         }:
         mkSystem {
           inherit settings;
-          inputs = nixboxInputs // inputs;
+          inputs = icenixInputs // inputs;
           homeModules = [
             ./home-manager
             settings.home
-            nixboxInputs.catppuccin.homeManagerModules.catppuccin
-            nixboxInputs.nixvim.homeManagerModules.nixvim
+            icenixInputs.catppuccin.homeManagerModules.catppuccin
+            icenixInputs.nixvim.homeManagerModules.nixvim
             {
               nixpkgs.config.allowUnfree = true;
               nixpkgs.overlays = [
-                nixboxInputs.nur.overlays.default
+                icenixInputs.nur.overlays.default
               ];
             }
           ];
@@ -73,7 +73,7 @@
             ./os/default.nix
             settings.os or { }
             {
-              nixbox = settings.nixbox;
+              icenix = settings.icenix;
             }
           ];
         };

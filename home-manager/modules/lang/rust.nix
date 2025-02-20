@@ -8,7 +8,7 @@
 let
   filterMap = l: builtins.map (x: x.name) (builtins.filter (x: x.enable) l);
 
-  rust = config.nixbox.lang.rust;
+  rust = config.icenix.lang.rust;
   rust-bin = pkgs.rust-bin.selectLatestNightlyWith (
     toolchain:
     toolchain.default.override ({
@@ -16,6 +16,10 @@ let
         {
           name = "rust-src";
           enable = rust.extensions.rust-src.enable;
+        }
+        {
+          name = "miri";
+          enable = rust.extensions.miri.enable;
         }
       ];
       targets = filterMap [
@@ -37,12 +41,13 @@ let
 in
 {
   options = {
-    nixbox.lang.rust.mold.enable = lib.mkEnableOption "mold linker";
-    nixbox.lang.rust.nextest.enable = lib.mkEnableOption "mold linker";
+    icenix.lang.rust.mold.enable = lib.mkEnableOption "mold linker";
+    icenix.lang.rust.nextest.enable = lib.mkEnableOption "mold linker";
 
-    nixbox.lang.rust.extensions.rust-src.enable = lib.mkEnableOption "rust src";
-    nixbox.lang.rust.target.risc.enable = lib.mkEnableOption "risc target";
-    nixbox.lang.rust.target.musl.enable = lib.mkEnableOption "musl target";
+    icenix.lang.rust.extensions.rust-src.enable = lib.mkEnableOption "rust src";
+    icenix.lang.rust.extensions.miri.enable = lib.mkEnableOption "rust miri";
+    icenix.lang.rust.target.risc.enable = lib.mkEnableOption "risc target";
+    icenix.lang.rust.target.musl.enable = lib.mkEnableOption "musl target";
   };
   config = {
     nixpkgs.overlays = [

@@ -1,4 +1,4 @@
-# NixBox
+# IceNix
 
 Blazing fast, minimal, working WM environment for NixOS.
 
@@ -24,9 +24,9 @@ Blazing fast, minimal, working WM environment for NixOS.
 
 Clone the repo, create a config directory for nix and copy the content of the example to it
 ```sh
-git clone git@github.com:AstrickHarren/nixbox.git
+git clone git@github.com:AstrickHarren/icenix.git
 mkdir -p ~/.config/nix
-cp nixbox/example/* ~/.config/nix
+cp icenix/example/* ~/.config/nix
 ```
 
 Copy the your NixOS hardware configuration to the config directory as well, it can be done usually by
@@ -38,8 +38,6 @@ cp /etc/nixos/hardware-configuration.nix hardware.nix
 > Make sure you read the example thoroughly and change config accordingly before the next step!
 > There are plently of places you might want to change, most obviously the userName and hostName
 
-## Build
-
 Now you are good to go! Run the following commands to build your NixOS and home manager!
 
 ```sh
@@ -47,11 +45,22 @@ sudo nixos-rebuild switch --flake ~/.config/nix
 home-manager switch --flake ~/.config/nix
 ```
 
-## Update
+## Subscription
 
-If there is a change made to NixBox, you can update your subscription by running
+If there is a change made to IceNix, you can update your subscription by running
 ```sh
-nix flake update nixbox
+icenix sync home # pulls and updates user-level changes
+icenix sync os # pulls and updates os-level changes
 ```
-under `~/.config/nix`. This will update you to the newest version of NixBox and any 
-dependency of NixBox. Rebuild your NixOS and/or home manager and you'll see the effect.
+
+Equivalently, if you need more control, try running
+```sh
+icenix update
+```
+and 
+
+```sh
+icenix build home # equivalent to `home-manager switch --flake ~/.config/nix`
+icenix build os # equivalent to `sudo nixos-rebuild switch --flake ~/.config/nix`
+```
+to rebuild your NixOS and/or home manager and you'll see the effect.

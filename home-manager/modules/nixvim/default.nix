@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
   imports = [
     ./autoclose.nix
@@ -37,39 +37,46 @@
         }
       ];
 
-      keymaps = [
-        {
-          action = "<cmd>w<cr>";
-          key = "<C-s>";
-          options = {
-            silent = true;
-          };
-          mode = [
-            "n"
-            "v"
-            "i"
-          ];
-        }
-        {
-          action = "<cmd>wa<cr>";
-          key = "<C-S-s>";
-          options = {
-            silent = true;
-          };
-          mode = [
-            "n"
-            "v"
-            "i"
-          ];
-        }
-        {
-          action = "<C-r>";
-          key = "U";
-          options = {
-            silent = true;
-          };
-        }
-      ];
+      keymaps =
+        let
+          mkKeymap =
+            {
+              action,
+              key,
+              options ? {
+                silent = true;
+              },
+              mode ? [
+                "n"
+                "v"
+                "i"
+              ],
+            }:
+            {
+              inherit
+                action
+                key
+                options
+                mode
+                ;
+            };
+        in
+        lib.map mkKeymap [
+          {
+            action = "<cmd>w<cr>";
+            key = "<C-s>";
+          }
+          {
+            action = "<cmd>vs<cr>";
+            key = "<C-\\>";
+          }
+          {
+            action = "<C-r>";
+            key = "U";
+            mode = [ "n" ];
+          }
+        ];
+
       opts = {
         number = true;
         relativenumber = true;

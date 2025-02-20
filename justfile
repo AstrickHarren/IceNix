@@ -1,7 +1,7 @@
-export NIXBOX := "nixbox"
+export ICENIX := "icenix"
 
 update: 
-  nix flake update nixbox --flake $FLAKE
+  nix flake update icenix --flake $FLAKE
 
 git-update:
   git cadn

@@ -43,7 +43,7 @@
     FLAKE = "$HOME/.config/nix"; # where you put your nix config
   };
 
-  nixbox = {
+  icenix = {
     enable = true;
     cursor.theme = "Bibata-Modern-Amber"; # default is `Bibata-Modern-Ice`
 
