@@ -75,6 +75,11 @@
             key = "U";
             mode = [ "n" ];
           }
+          {
+            action = ''"+y'';
+            key = "<C-c>";
+            mode = [ "v" ];
+          }
         ];
 
       opts = {
