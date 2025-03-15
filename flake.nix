@@ -7,6 +7,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     catppuccin = {
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -62,6 +67,7 @@
             settings.home
             icenixInputs.catppuccin.homeManagerModules.catppuccin
             icenixInputs.nixvim.homeManagerModules.nixvim
+            icenixInputs.niri.homeModules.niri
             {
               nixpkgs.config.allowUnfree = true;
               nixpkgs.overlays = [
