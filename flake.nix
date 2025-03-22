@@ -72,6 +72,7 @@
               nixpkgs.config.allowUnfree = true;
               nixpkgs.overlays = [
                 icenixInputs.nur.overlays.default
+                icenixInputs.niri.overlays.niri
               ];
             }
           ];
