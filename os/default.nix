@@ -12,6 +12,8 @@
   options.icenix = {
     nvidia.enable = lib.mkEnableOption "Enable Nvidia Driver";
     dockerRootless.enable = lib.mkEnableOption "Enable rootless Docker";
+    autoLogin.enable = lib.mkEnableOption "login without diaplay manager";
+    autoLogin.command = lib.mkOption { default = "Hyprland"; };
   };
 
   config =
@@ -74,7 +76,8 @@
           settings = {
             initial_session = {
               user = settings.userName;
-              command = "Hyprland";
+              # TODO: not really safe for other cases
+              command = config.icenix.autoLogin.command;
             };
             default_session = {
               user = settings.userName;
